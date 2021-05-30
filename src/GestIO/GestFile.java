@@ -103,7 +103,7 @@ public class GestFile<T> {
     }
 
 
-    public void saveFile(Socket clientSock) throws IOException {
+    public void saveFile(Socket clientSock) throws IOException { //beta
         DataInputStream dis = new DataInputStream(clientSock.getInputStream());
         FileOutputStream fos = new FileOutputStream("testfile.jpg");
         byte[] buffer = new byte[4096];

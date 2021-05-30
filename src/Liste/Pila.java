@@ -1,0 +1,40 @@
+package Liste;
+
+public class Pila<T extends Comparable<T>> {
+
+    private Lista<T> lista;
+
+    public Pila() {
+        lista=new Lista();
+    }
+
+    public void push(T object)
+    {
+        lista.inserisciInTesta(object);
+    }
+    public T pop()
+    {
+        T object=null;
+        Nodo head;
+        head=lista.getHead();
+
+        object= (T) lista.getHead().getInfo();
+        lista.setHead(lista.getHead().getLink());
+
+
+        return object;
+    }
+
+    public void ordina()
+    {
+        lista.ordinaLista();
+    }
+
+    public String vedi()
+    {
+        return lista.visita();
+    }
+
+
+
+}

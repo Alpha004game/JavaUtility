@@ -39,19 +39,20 @@ public class QuickSort<T extends Comparable<T>>
         return (i + 1);
     }
 
-    public void quickSort(T array[], int low, int high) {
-        if (low < high) {
+    public void quickSort(T array[], int minimum, int maximum) {
+        maximum--;
+        if (minimum < maximum) {
 
             // find pivot element such that
             // elements smaller than pivot are on the left
             // elements greater than pivot are on the right
-            int pi = partition(array, low, high);
+            int pi = partition(array, minimum, maximum);
 
             // recursive call on the left of pivot
-            quickSort(array, low, pi - 1);
+            quickSort(array, minimum, pi - 1);
 
             // recursive call on the right of pivot
-            quickSort(array, pi + 1, high);
+            quickSort(array, pi + 1, maximum);
         }
     }
 }

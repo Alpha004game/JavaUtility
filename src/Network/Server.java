@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+/*
+    IMPLEMENTAZIONI DA FARE:
+    -Scrivere e leggere da un certo client
+    -Scrivere Broadcast per scrittura
 
+ */
 public class Server {
 
     private ServerSocket server;

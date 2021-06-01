@@ -39,4 +39,16 @@ public class GestClient {
             return false;
         }
     }
+
+    public Socket getClient() {
+        return client;
+    }
+
+    public BufferedReader getIn() {
+        return in;
+    }
+
+    public PrintWriter getOut() {
+        return out;
+    }
 }

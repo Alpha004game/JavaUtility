@@ -43,5 +43,27 @@ public class Client {
         if(tmp)
             client=null;
         return tmp;
+
     }
+
+    public void writeString(String msg)
+    {
+        client.getOut().println(msg);
+    }
+    public String reciveString()
+    {
+        String msg=null;
+        try
+        {
+            msg= client.getIn().readLine();
+
+        }
+        catch(IOException e)
+        {
+
+        }
+        return msg;
+
+    }
+
 }

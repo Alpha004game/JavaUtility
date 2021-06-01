@@ -1,0 +1,35 @@
+package Network;
+
+import java.io.IOException;
+import java.net.Socket;
+
+public class Client {
+
+
+    private GestClient client;
+    private String destination;
+    private int port;
+
+    public Client(String destination, int port)
+    {
+        this.destination=destination;
+        this.port=port;
+    }
+
+    public boolean connect()
+    {
+        Socket s=null;
+        long timeOut;
+        while(s==null && timeOut<)
+        {
+            try
+            {
+                s=new Socket(destination, port);
+            }
+            catch(IOException e)
+            {
+                s=null;
+            }
+        }
+    }
+}

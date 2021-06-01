@@ -19,17 +19,29 @@ public class Client {
     public boolean connect()
     {
         Socket s=null;
-        long timeOut;
-        while(s==null && timeOut<)
+        //long timeOut;
+        while(s==null/* && timeOut<*/)
         {
             try
             {
                 s=new Socket(destination, port);
+                client=new GestClient(s);
+                return true;
             }
             catch(IOException e)
             {
                 s=null;
+                return false;
             }
         }
+        return true;
+    }
+
+    public boolean disconnect()
+    {
+        boolean tmp= client.terminate();
+        if(tmp)
+            client=null;
+        return tmp;
     }
 }

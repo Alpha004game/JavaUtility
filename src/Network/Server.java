@@ -60,7 +60,7 @@ public class Server {
     }
 
 
-    public static boolean terminateConnection(int i) throws noClientFoundException
+    public boolean terminateConnection(int i) throws noClientFoundException
     {
         if(i<0 || i> clienti.size())
             throw new noClientFoundException("No client found");

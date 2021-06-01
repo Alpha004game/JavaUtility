@@ -39,8 +39,12 @@ public class QuickSort<T extends Comparable<T>>
         return (i + 1);
     }
 
-    public void quickSort(T array[], int minimum, int maximum) {
-        maximum--;
+    public void quickSort(T[] array)
+    {
+        quickSort(array, 0, array.length-1);
+    }
+    private void quickSort(T array[], int minimum, int maximum) {
+        //maximum--;
         if (minimum < maximum) {
 
             // find pivot element such that

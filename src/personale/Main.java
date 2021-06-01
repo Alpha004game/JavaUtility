@@ -81,7 +81,7 @@ public class Main {
         System.out.println(lista.visita());
         */
 
-        /*QuickSort<Persona> sort=new QuickSort<>();
+        QuickSort<Persona> sort=new QuickSort<>();
         Persona[] array=new Persona[10];
         //3,1,4,2,5,7,8,6,9,0
         array[0]=new Persona("A","A", 3);
@@ -99,13 +99,13 @@ public class Main {
         {
             System.out.println(array[i].toString());
         }
-        sort.quickSort(array, 0, array.length-1);
+        sort.quickSort(array);
         System.out.println("After sort...");
         for(int i=0; i< array.length; i++)
         {
             System.out.println(array[i].toString());
         }
-
+        /*
         QuickSort<Character> sort1=new QuickSort<>();
         Character[] caratteri = new Character[10];
         //c,s,d,a,e,q,t,f,h,g

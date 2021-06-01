@@ -81,7 +81,7 @@ public class Main {
         System.out.println(lista.visita());
         */
 
-        QuickSort<Persona> sort=new QuickSort<>();
+        /*QuickSort<Persona> sort=new QuickSort<>();
         Persona[] array=new Persona[10];
         //3,1,4,2,5,7,8,6,9,0
         array[0]=new Persona("A","A", 3);
@@ -130,5 +130,21 @@ public class Main {
         {
             System.out.println(caratteri[i]);
         }
+
+        QuickSort<Integer> sort=new QuickSort<>();
+        Integer[] array=new Integer[10000];
+        for(int i=0; i< array.length; i++)
+        {
+            int tmp= (int)((Math.random() * (10000 - 0)) + 10000);
+            array[i]=tmp;
+
+        }
+        sort.quickSort(array, 0, array.length-1);
+        for(int i=0; i< array.length; i++)
+        {
+            System.out.println(array[i]);
+        }
+        */
+
     }
 }

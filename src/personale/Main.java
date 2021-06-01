@@ -105,5 +105,30 @@ public class Main {
         {
             System.out.println(array[i].toString());
         }
+
+        QuickSort<Character> sort1=new QuickSort<>();
+        Character[] caratteri = new Character[10];
+        //c,s,d,a,e,q,t,f,h,g
+        System.out.println("Pre sort...");
+        caratteri[0]='c';
+        caratteri[1]='s';
+        caratteri[2]='d';
+        caratteri[3]='a';
+        caratteri[4]='e';
+        caratteri[5]='q';
+        caratteri[6]='t';
+        caratteri[7]='f';
+        caratteri[8]='h';
+        caratteri[9]='g';
+        for(int i=0; i< caratteri.length; i++)
+        {
+            System.out.println(caratteri[i]);
+        }
+        sort1.quickSort(caratteri, 0, caratteri.length-1);
+        System.out.println("Dopo....");
+        for(int i=0; i< caratteri.length; i++)
+        {
+            System.out.println(caratteri[i]);
+        }
     }
 }

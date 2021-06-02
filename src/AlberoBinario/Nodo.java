@@ -1,4 +1,4 @@
-package Albero;
+package AlberoBinario;
 
 
 public class Nodo <T extends Comparable<T>>{

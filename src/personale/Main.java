@@ -4,6 +4,7 @@ package personale;
 import Liste.Lista;
 import Liste.Lista2;
 import Liste.Nodo;
+import Sort.BoubleSort;
 import Sort.QuickSort;
 
 import java.io.IOException;
@@ -81,7 +82,7 @@ public class Main {
         System.out.println(lista.visita());
         */
 
-        QuickSort<Persona> sort=new QuickSort<>();
+        BoubleSort<Persona> sort=new BoubleSort<>();
         Persona[] array=new Persona[10];
         //3,1,4,2,5,7,8,6,9,0
         array[0]=new Persona("A","A", 3);
@@ -99,7 +100,7 @@ public class Main {
         {
             System.out.println(array[i].toString());
         }
-        sort.quickSort(array);
+        sort.boubleSort(array);
         System.out.println("After sort...");
         for(int i=0; i< array.length; i++)
         {

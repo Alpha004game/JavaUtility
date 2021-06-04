@@ -13,6 +13,7 @@ public class BoubleSort <T extends Comparable<T>>{
                     T k = array[j];
                     array[j] = array[j+1];
                     array[j+1] = k;
+
                     flag=true; //Lo setto a true per indicare che é avvenuto uno scambio
                 }
             }

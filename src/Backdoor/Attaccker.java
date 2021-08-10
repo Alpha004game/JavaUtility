@@ -14,6 +14,8 @@ public class Attaccker extends Thread{
 
     public Attaccker(String ip, int port)
     {
+        victim=null;
+        while(victim==null)
         try
         {
             victim=new Socket(ip,port);
@@ -22,7 +24,8 @@ public class Attaccker extends Thread{
         }
         catch(Exception e)
         {
-
+            e.printStackTrace();
+            victim=null;
         }
     }
 

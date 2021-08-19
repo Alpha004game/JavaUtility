@@ -43,6 +43,15 @@ public class Nodo<T extends Comparable<T>> {
         return this.info.compareTo(nodo.getInfo());
     }
 
+    public boolean equals(T object){return info.equals(object);}
+    /*
+    public boolean eqalsForNodo(Nodo object)
+    {
+        return info.equals(object.getInfo()) && link.equals(object.getLink());
+    }
+    */
+
+
 
 
 

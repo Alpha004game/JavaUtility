@@ -47,6 +47,55 @@ public class Lista2<T extends Comparable<T>> {
 
     }
 
+    public void svuotaLista()
+    {
+        head=null;
+    }
+
+
+    public Lista2<T> copiaLista()
+    {
+        Lista2<T> listaCopia=new Lista2<>();
+        Nodo n=head;
+        while(n!=null)
+        {
+            listaCopia.inserisciInCoda((T)n.getInfo());
+
+            n=n.getLink();
+        }
+
+
+        return listaCopia;
+    }
+
+
+    public int contaOggetti(T object)
+    {
+        Nodo n=head;
+        int i=0;
+        while(n!=null)
+        {
+            if(n.equals(object))
+                i++;
+            n=n.getLink();
+        }
+        return i;
+    }
+
+    public int lenght()
+    {
+        Nodo n=head;
+        int i=0;
+        if(head==null)
+            return 0;
+        while(n!=null)
+        {
+            i++;
+            n=n.getLink();
+        }
+        return i;
+    }
+    /*
     public Nodo elimina(T oggetto){
         Nodo i=head.getLink();
         Nodo j=head;
@@ -73,6 +122,48 @@ public class Lista2<T extends Comparable<T>> {
             //o++;
         }
         return null;
+    }
+    */
+    public T elimina(T object)
+    {
+        Nodo na=head.getLink();
+        Nodo n=head;
+
+        if(head.equals(object))
+        {
+
+            head=head.getLink();
+            return (T) n.getInfo();
+        }
+
+        while(na!=null)
+        {
+            if(na.equals(object))
+            {
+                n.setLink(na.getLink());
+
+                return (T)na.getInfo();
+            }
+            n=na;
+            na=na.getLink();
+        }
+        return null;
+    }
+
+    public String toString()
+    {
+        String msg="";
+        Nodo n=head;
+        if(n==null)
+        {
+            return "Lista vuota";
+        }
+        while(n!=null)
+        {
+            msg=msg+n.getInfo().toString()+"\n";
+            n=n.getLink();
+        }
+        return msg;
     }
 
 

@@ -3,6 +3,8 @@ package GestIO;
 import java.io.File;
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,6 +31,29 @@ public class GestFile<T> {
     {
         File  file= new File(path);
         return file.exists();
+    }
+
+    public static File copyFile(Path source, String dest)
+    {
+
+        File file=new File(dest);
+        try
+        {
+            Files.copy(source, file.toPath());
+        }
+        catch(Exception e)
+        {
+
+        }
+
+        return file;
+
+    }
+
+    public static void cutFile(File file, String dest)
+    {
+        File desti=new File(dest);
+        file.renameTo(desti);
     }
 
 

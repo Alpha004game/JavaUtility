@@ -22,6 +22,8 @@ import java.util.Scanner;
 
 public class GetInputScan {
 
+    private static Scanner input=new Scanner(System.in);
+
     public GetInputScan() {
     }
 
@@ -34,36 +36,36 @@ public class GetInputScan {
 
     public static int getInt()
     {
-        Scanner input;
-        input= new Scanner(System.in);
+        //Scanner input;
+        //input= new Scanner(System.in);
         return input.nextInt();
     }
 
     public static float getFloat()
     {
-        Scanner input;
-        input= new Scanner(System.in);
+        //Scanner input;
+        //input= new Scanner(System.in);
         return input.nextFloat();
     }
 
     public static double getDouble()
     {
-        Scanner input;
-        input= new Scanner(System.in);
+        //Scanner input;
+        //input= new Scanner(System.in);
         return input.nextDouble();
     }
 
     public static long getLong()
     {
-        Scanner input;
-        input= new Scanner(System.in);
+        //Scanner input;
+        //input= new Scanner(System.in);
         return input.nextLong();
     }
 
     public static String getLine()
     {
-        Scanner input;
-        input= new Scanner(System.in);
+        //Scanner input;
+        //input= new Scanner(System.in);
         return input.nextLine();
     }
 

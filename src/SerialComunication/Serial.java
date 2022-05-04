@@ -47,7 +47,13 @@ public class Serial {
 
     public boolean openSerial()
     {
-        return seriale.openPort();
+        boolean s1=seriale.setDTR();
+        boolean s2=seriale.setRTS(); //consigliato dal forum di arduino
+        if(s1==true && s2==true)
+            return seriale.openPort();
+        else
+            return false;
+
     }
 
     public boolean closeSerial()
@@ -57,9 +63,11 @@ public class Serial {
 
     public void writeString(String msg)
     {
+
         PrintWriter writer=new PrintWriter(seriale.getOutputStream());
         writer.write(msg);
         writer.close();
+
     }
 
     public String readString()

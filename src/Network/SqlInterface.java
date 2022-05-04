@@ -30,6 +30,8 @@ public class SqlInterface {
 
     public ResultSet query(String query)
     {
+        //if(query.startsWith("SELECT") || query.startsWith("select"))
+
         try {
             return statement.executeQuery(query);
         } catch (SQLException throwables) {

@@ -124,4 +124,20 @@ public class Albero <T extends Comparable<T>> {
     }
 
 
+    public int size()
+    {
+        return size(root);
+    }
+
+    private int size(Nodo root)
+    {
+        int sx=0, dx=0;
+        if(root==null)
+            return 0;
+        sx=size(root.getLinkSX());
+        dx=size(root.getLinkDX());
+        return 1+sx+dx;
+    }
+
+
 }

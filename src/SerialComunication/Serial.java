@@ -1,5 +1,5 @@
 package SerialComunication;
-import com.fazecast.jSerialComm.SerialPort;
+/*import com.fazecast.jSerialComm.SerialPort;
 import jdk.jshell.spi.ExecutionControl;
 
 import javax.swing.*;
@@ -144,5 +144,6 @@ public class Serial {
             return null;
         }
     */
-
+/*
 }
+*/

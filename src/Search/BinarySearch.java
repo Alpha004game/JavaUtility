@@ -29,4 +29,22 @@ public class BinarySearch <T extends Comparable<T>>{
         // present in array
         return -1;
     }
+
+    //Parametri: array, parametro da cercare, primo valore considerare 1, ultimo valore considerare lunghezza dell'array
+    public int binarySearchIterative(T[] arr, T search, int first, int last)
+    {
+        int m;
+        first--;
+        while(first<=last)
+        {
+            m=(first+last)/2;
+            if(arr[m].compareTo(search)==0)
+                return m;
+            else if(arr[m].compareTo(search)<0)
+                last=m-1;
+            else
+                first=m+1;
+        }
+        return -1;
+    }
 }

@@ -33,6 +33,10 @@ public class Asymmetric {
         this.keys= new KeyPair(publicKey, privateKey);
     }
 
+    public Asymmetric() throws NoSuchAlgorithmException {
+        this.keys=generateRSAKeys();
+    }
+
     public boolean destroy(boolean confirm)
     {
         if(confirm)

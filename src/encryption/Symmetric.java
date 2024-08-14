@@ -5,8 +5,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
-public class Symmetric {
-
+public class Symmetric
+    {
     public static SecretKey createSecretAESKey(String keyStr) throws Exception{
         byte[] decodedKey = Base64.getDecoder().decode(keyStr);
         return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
@@ -25,7 +25,10 @@ public class Symmetric {
         this.key=createSecretAESKey(keyStr);
     }
 
-    public String encryptAES(String plaintext) throws Exception {
+    public String encryptAES(String plaintext) throws Exception
+    {
+        if(key==null)
+            throw new NoSuchKeyException();
         Cipher cipher=Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] encryptedBytes= cipher.doFinal(plaintext.getBytes());
@@ -34,6 +37,8 @@ public class Symmetric {
 
     public String decryptAES(String cryptedText) throws Exception
     {
+        if(key==null)
+            throw new NoSuchKeyException();
         Cipher cipher=Cipher.getInstance("AES");
         cipher.init(Cipher.DECRYPT_MODE, key);
         byte[] decryptedBytes=cipher.doFinal(Base64.getDecoder().decode(cryptedText));

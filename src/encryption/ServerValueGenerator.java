@@ -27,10 +27,8 @@ public class ServerValueGenerator {
     private String password="security1!";
 
 
-    private static long generateChangeTime()
-    {
-        return random.nextInt(4)*3600000;
-    }
+    private static long generateChangeTime() { return random.nextInt(4)*3600000; }
+
     private ServerValueGenerator()
     {
         this.epoch=System.currentTimeMillis();
@@ -66,7 +64,7 @@ public class ServerValueGenerator {
             }
             else if(command.equalsIgnoreCase("time"))
             {
-                System.out.println("Time remaining (ms): " + (1));
+                System.out.println("Time remaining (ms): " + Math.abs(System.currentTimeMillis()-(epoch+changeTime)));
                 System.out.println("Epoch: "+epoch);
                 System.out.println("changeTime: "+changeTime);
             }
@@ -89,7 +87,7 @@ public class ServerValueGenerator {
         this.changeTime=generateChangeTime();
 
         long n=this.epoch;
-        long g=this.epoch-(random.nextInt(50)*1000000);
+        long g=this.epoch-(random.nextInt(99)*1000000)- random.nextInt(59402)+1;
 
         sqlUpdate(n,g);
     }
@@ -103,7 +101,7 @@ public class ServerValueGenerator {
                 this.changeTime=generateChangeTime();
 
                 long n=this.epoch;
-                long g=this.epoch-(random.nextInt(50)*1000000);
+                long g=this.epoch-(random.nextInt(50)*10000000);
 
                 sqlUpdate(n,g);
             }

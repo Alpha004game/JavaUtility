@@ -16,6 +16,7 @@ public class ServerValueGenerator {
 
     private long epoch;
     private long changeTime;
+    private int port;
 
     private Thread updater=new Thread(this::updateValues);
     private Thread command=new Thread(this::command);
@@ -28,11 +29,16 @@ public class ServerValueGenerator {
 
 
     private static long generateChangeTime() { return random.nextInt(4)*3600000; }
+    private static int generatePort()
+    {
+        return random.nextInt(16382)+49152;
+    }
 
     private ServerValueGenerator()
     {
         this.epoch=System.currentTimeMillis();
         this.changeTime=generateChangeTime();
+        this.port=generatePort();
         forceUpdate();
     }
 
@@ -67,6 +73,7 @@ public class ServerValueGenerator {
                 System.out.println("Time remaining (ms): " + Math.abs(System.currentTimeMillis()-(epoch+changeTime)));
                 System.out.println("Epoch: "+epoch);
                 System.out.println("changeTime: "+changeTime);
+
             }
 
 
@@ -85,11 +92,12 @@ public class ServerValueGenerator {
     {
         this.epoch=System.currentTimeMillis();
         this.changeTime=generateChangeTime();
+        this.port=generatePort();
 
         long n=this.epoch;
-        long g=this.epoch-(random.nextInt(99)*1000000)- random.nextInt(59402)+1;
+        long g=this.epoch-(random.nextInt(99)*100000)- random.nextInt(55392)+1;
 
-        sqlUpdate(n,g);
+        sqlUpdate(n,g, port);
     }
     private void updateValues()
     {
@@ -99,16 +107,17 @@ public class ServerValueGenerator {
             {
                 this.epoch=System.currentTimeMillis();
                 this.changeTime=generateChangeTime();
+                this.port=generatePort();
 
                 long n=this.epoch;
                 long g=this.epoch-(random.nextInt(50)*10000000);
 
-                sqlUpdate(n,g);
+                sqlUpdate(n,g, port);
             }
         }
     }
 
-    private void sqlUpdate(long n, long g)
+    private void sqlUpdate(long n, long g, int port)
     {
         Connection connection=null;
         PreparedStatement preparedStatement=null;
@@ -116,10 +125,11 @@ public class ServerValueGenerator {
         {
             Class.forName("org.mariadb.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
-            String sql="UPDATE codes set n=?, g=? WHERE id=1";
+            String sql="UPDATE codes set n=?, g=?, port=? WHERE id=1";
             preparedStatement= connection.prepareStatement(sql);
             preparedStatement.setLong(1, n);
             preparedStatement.setLong(2, g);
+            preparedStatement.setInt(3, port);
             int rows=preparedStatement.executeUpdate();
             if(rows==1)
                 System.out.println("Operazione completata con successo");
@@ -129,6 +139,7 @@ public class ServerValueGenerator {
         catch(Exception e)
         {
             System.out.println("Eccezione rilevata: "+e.getMessage());
+            e.printStackTrace();
         }
         finally {
             try

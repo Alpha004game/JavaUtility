@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+
+/*
+Compilare ed eseguire con il parametro -cp .:[Nome libreria mariadb]
+
+ */
 public class ServerValueGenerator {
 
     private long epoch;
@@ -22,10 +27,9 @@ public class ServerValueGenerator {
     private String password="security1!";
 
 
-    private ArrayList<String> commandQueue=new ArrayList<>();
     private static long generateChangeTime()
     {
-        return random.nextInt(23)*3600000;
+        return random.nextInt(4)*3600000;
     }
     private ServerValueGenerator()
     {
@@ -37,8 +41,8 @@ public class ServerValueGenerator {
     public void run()
     {
         int a=0;
-        updater.run();
-        //command.run();
+        updater.start();
+        command.start();
         while(!stop)
         {
             a++;
@@ -48,9 +52,34 @@ public class ServerValueGenerator {
     private void command()
     {
         Scanner scanner=new Scanner(System.in);
+        String command;
         while(!stop)
         {
+            command=scanner.nextLine();
+            if(command.equalsIgnoreCase("force"))
+                forceUpdate();
+            else if(command.equalsIgnoreCase("help"))
+            {
 
+                System.out.println("force: forced update");
+                System.out.println("time: see remaining time before the update");
+            }
+            else if(command.equalsIgnoreCase("time"))
+            {
+                System.out.println("Time remaining (ms): " + (1));
+                System.out.println("Epoch: "+epoch);
+                System.out.println("changeTime: "+changeTime);
+            }
+
+
+            else if(command.equalsIgnoreCase("exit"))
+            {
+                stop = true;
+                System.exit(0);
+            }
+
+            else
+                System.out.println("Command not valid");
         }
     }
 
@@ -68,7 +97,7 @@ public class ServerValueGenerator {
     {
         while(!stop)
         {
-            if(System.currentTimeMillis()==epoch+changeTime)
+            if(System.currentTimeMillis()>=epoch+changeTime)
             {
                 this.epoch=System.currentTimeMillis();
                 this.changeTime=generateChangeTime();
@@ -119,5 +148,6 @@ public class ServerValueGenerator {
     public static void main(String[] args)
     {
         ServerValueGenerator server=new ServerValueGenerator();
+        server.run();
     }
 }

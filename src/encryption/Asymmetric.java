@@ -65,6 +65,16 @@ public class Asymmetric {
         return Base64.getEncoder().encodeToString(encryptedBytes);
     }
 
+    public String encryptPrivateRSA(String plainText) throws Exception
+    {
+        if(keys.getPublic()==null)
+            throw new NoSuchKeyException();
+        Cipher cipher= Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, keys.getPrivate());
+        byte[] encryptedBytes=cipher.doFinal(plainText.getBytes());
+        return Base64.getEncoder().encodeToString(encryptedBytes);
+    }
+
 
     private String encryptPublic(String plainText, String algorithm)  throws Exception
     {
@@ -82,6 +92,16 @@ public class Asymmetric {
             throw new NoSuchKeyException();
         Cipher cipher=Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, keys.getPrivate());
+        byte[] decryptedBytes= cipher.doFinal(Base64.getDecoder().decode(encryptedText));
+        return new String(decryptedBytes);
+    }
+
+    public String decryptPublicRSA(String encryptedText) throws Exception
+    {
+        if(keys.getPrivate()==null)
+            throw new NoSuchKeyException();
+        Cipher cipher=Cipher.getInstance("RSA");
+        cipher.init(Cipher.DECRYPT_MODE, keys.getPublic());
         byte[] decryptedBytes= cipher.doFinal(Base64.getDecoder().decode(encryptedText));
         return new String(decryptedBytes);
     }
@@ -126,8 +146,12 @@ public class Asymmetric {
     public static void main(String[] args)
     {
         try {
-            Asymmetric test=new Asymmetric(generateRSAKeys().getPublic(), null);
-        } catch (NoSuchAlgorithmException e) {
+            Asymmetric test=new Asymmetric(generateRSAKeys());
+            System.out.println(test.decryptPublicRSA(test.encryptPrivateRSA("Ciao")));
+            String[] prova=test.convertToPEM();
+            System.out.println(prova[0]);
+            System.out.println(prova[1]);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

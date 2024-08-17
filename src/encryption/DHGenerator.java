@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
@@ -101,12 +102,27 @@ public class DHGenerator {
     {
         long[] data=getGNP();
         String tmp=null;
+        boolean connect=false;
         Random random=new Random();
         BigInteger g=new BigInteger(String.valueOf(data[0])),n=new BigInteger(String.valueOf(data[1]));
         int port=(int)data[2];
         data=null;
 
-        Socket alice= new Socket(host, port);
+        Socket alice= new Socket();
+        while(!connect)
+        {
+            try
+            {
+                alice= new Socket();
+                alice.connect(new InetSocketAddress(host, port), 30000);
+                connect=true;
+            }
+            catch(Exception e)
+            {
+                connect=false;
+            }
+        }
+
         BufferedReader in=new BufferedReader(new InputStreamReader(alice.getInputStream()));
         PrintWriter out=new PrintWriter(alice.getOutputStream(), true);
 

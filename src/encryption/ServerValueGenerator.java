@@ -1,11 +1,14 @@
 package encryption;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 
 /*
@@ -13,6 +16,8 @@ Compilare ed eseguire con il parametro -cp .:[Nome libreria mariadb]
 
  */
 public class ServerValueGenerator {
+
+    private static final int Internalport=1432;
 
     private long epoch;
     private long changeTime;
@@ -46,7 +51,7 @@ public class ServerValueGenerator {
     {
         int a=0;
         updater.start();
-        command.start();
+        //command.start();
         while(!stop)
         {
             a++;
@@ -55,36 +60,72 @@ public class ServerValueGenerator {
 
     private void command()
     {
-        Scanner scanner=new Scanner(System.in);
-        String command;
-        while(!stop)
+        try
         {
-            command=scanner.nextLine();
-            if(command.equalsIgnoreCase("force"))
-                forceUpdate();
-            else if(command.equalsIgnoreCase("help"))
+            ServerSocket server=new ServerSocket(Internalport);
+            Socket client=null;
+            BufferedReader in=null;
+            PrintWriter out=null;
+
+            String command;
+            while(!stop)
             {
+                if(client==null)
+                {
+                    client= server.accept();
+                    in=new BufferedReader(new InputStreamReader(client.getInputStream()));
+                    out=new PrintWriter(client.getOutputStream(), true);
+                }
+                if(client!=null)
+                {
+                    command=in.readLine();
+                    switch(command)
+                    {
+                        case "force":
+                            forceUpdate();
+                            break;
 
-                System.out.println("force: forced update");
-                System.out.println("time: see remaining time before the update");
+                        case "help":
+                            System.out.println("force: forced update");
+                            System.out.println("time: see remaining time before the update");
+                            out.println("force: forced update"+"\ntime: see remaining time before the update");
+                            break;
+
+                        case "time":
+                            System.out.println("Time remaining (ms): " + Math.abs(System.currentTimeMillis()-(epoch+changeTime)));
+                            System.out.println("Epoch: "+epoch);
+                            System.out.println("changeTime: "+changeTime);
+                            out.println("Time remaining (ms): " + Math.abs(System.currentTimeMillis()-(epoch+changeTime)));
+                            break;
+
+                        case "exit":
+                            stop = true;
+                            in.close();
+                            out.close();
+                            client.close();
+                            System.exit(0);
+                            break;
+
+                        case "disconnect":
+                            in.close();
+                            out.close();
+                            client.close();
+                            client=null;
+                            break;
+
+
+                        default:
+                            System.out.println("Command not valid");
+                            out.println("Command not valid");
+                            break;
+                    }
+                }
+
+
+
             }
-            else if(command.equalsIgnoreCase("time"))
-            {
-                System.out.println("Time remaining (ms): " + Math.abs(System.currentTimeMillis()-(epoch+changeTime)));
-                System.out.println("Epoch: "+epoch);
-                System.out.println("changeTime: "+changeTime);
-
-            }
-
-
-            else if(command.equalsIgnoreCase("exit"))
-            {
-                stop = true;
-                System.exit(0);
-            }
-
-            else
-                System.out.println("Command not valid");
+        } catch (Exception e) {
+            System.out.println("Errore: "+e.getMessage());
         }
     }
 
@@ -121,10 +162,22 @@ public class ServerValueGenerator {
     {
         Connection connection=null;
         PreparedStatement preparedStatement=null;
+        boolean connected=false;
         try
         {
             Class.forName("org.mariadb.jdbc.Driver");
-            connection = DriverManager.getConnection(url, user, password);
+            while(!connected)
+            {
+                try
+                {
+                    connection = DriverManager.getConnection(url, user, password);
+                    connected=true;
+                }
+                catch(Exception e)
+                {
+                    connected=false;
+                }
+            }
             String sql="UPDATE codes set n=?, g=?, port=? WHERE id=1";
             preparedStatement= connection.prepareStatement(sql);
             preparedStatement.setLong(1, n);

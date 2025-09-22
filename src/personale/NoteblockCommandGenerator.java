@@ -1,7 +1,7 @@
 package personale;
 
 
-import GestIO.GetInput;
+import gestIO.GetInput;
 
 public class NoteblockCommandGenerator {
 

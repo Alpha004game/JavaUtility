@@ -1,16 +1,10 @@
 package personale;
 
 
-import Liste.Lista;
-import Liste.Lista2;
-import Liste.Nodo;
-import Sort.BoubleSort;
-import Sort.QuickSort;
-import GestIO.*;
+import sort.BoubleSort;
 
 import java.io.IOException;
-import java.util.Scanner;
-import java.io.*;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {

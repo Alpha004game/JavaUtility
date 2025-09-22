@@ -1,4 +1,4 @@
-package personale;
+package varie;
 
 import java.io.File;
 import java.io.*;

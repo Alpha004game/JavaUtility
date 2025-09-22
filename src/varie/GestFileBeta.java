@@ -1,8 +1,7 @@
-package personale;
+package varie;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 /*

@@ -1,4 +1,4 @@
-package personale;
+package varie;
 /*
     TITOLO: GetObject
     DESCRIZIONE: Classe per la gestione del salvataggio di uno o più oggetti su file

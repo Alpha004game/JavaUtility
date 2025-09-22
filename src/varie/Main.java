@@ -1,4 +1,4 @@
-package personale;
+package varie;
 
 
 import sort.BoubleSort;

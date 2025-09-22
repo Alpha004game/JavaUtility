@@ -1,8 +1,25 @@
-# Raccolta di funzionalità in linguaggio Java
+# Progetto Librerie di java
 
-Autore: Francesco Patti
+**STATUS: on going**
 
-Questa repository rappresenta diversi anni di lavoro nel linguaggio JAVA. Il progetto è iniziato alle superiori e continua tutt'ora.
+Progetto al solo scopo della conoscenza di JAVA anche in aspetti più tecnici e specifici del 
+
+## Contenuto del Progetto
+
+Diverse librerie con funzionalità implementate tramite le apposite librerie
 
 
-**NOTA:** I codici qui riportati non sono stati creati per essere utilizzati in un software ma al solo scopo di conoscere le funzionalità e la documentazione del linguaggio JAVA
+### Librerie esterne utilizzate
+
+jSerialComm
+mariadb-java-client
+
+
+
+## 👤 Autore
+
+**Francesco Patti**  
+[GitHub](https://github.com/Alpha004game)
+
+
+
